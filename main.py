@@ -2,11 +2,15 @@ import mysql.connector.pooling
 from mysql.connector import Error
 
 # Configuración de la base de datos
+import os
+
+# Para Railway (producción) o local (desarrollo)
 dbconfig = {
-    "host": "localhost",
-    "user": "root",
-    "passwd": "",
-    "database": "persona"
+    "host": os.getenv("MYSQL_HOST", "localhost"),
+    "user": os.getenv("MYSQL_USER", "root"),
+    "passwd": os.getenv("MYSQL_PASSWORD", ""),
+    "database": os.getenv("MYSQL_DATABASE", "persona"),
+    "port": int(os.getenv("MYSQL_PORT", "3306"))
 }
 
 # Variable global para el pool

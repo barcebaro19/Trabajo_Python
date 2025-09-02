@@ -73,5 +73,8 @@ def eliminar_cliente(id_cliente):
     return redirect(url_for('inicio'))
 
 if __name__ == '__main__':
-    # Para PyCharm y desarrollo local
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    import os
+    # Para Railway (producción) o local (desarrollo)
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('FLASK_ENV') != 'production'
+    app.run(host='0.0.0.0', port=port, debug=debug)

@@ -9,7 +9,7 @@ class ClienteDAO:
         try:
             conexion = get_connection()
             if conexion is None:
-                print("❌ No se pudo obtener conexión")
+                print(" No se pudo obtener conexión")
                 return
             cursor = conexion.cursor()
             # Corregido para coincidir con los nombres reales de las columnas
@@ -17,9 +17,9 @@ class ClienteDAO:
             valores = (cliente.nombre, cliente.apellido, cliente.telefono, cliente.email)
             cursor.execute(sql, valores)
             conexion.commit()
-            print("✅ Cliente insertado correctamente")
+            print("Cliente insertado correctamente")
         except Exception as e:
-            print(f"❌ Error al insertar cliente: {e}")
+            print(f"Error al insertar cliente: {e}")
         finally:
             if cursor: cursor.close()
             if conexion: conexion.close()  # libera al pool
@@ -30,7 +30,7 @@ class ClienteDAO:
         try:
             conexion = get_connection()
             if conexion is None:
-                print("❌ No se pudo obtener conexión")
+                print(" No se pudo obtener conexión")
                 return clientes
             cursor = conexion.cursor()
             # Corregido para coincidir con los nombres reales de las columnas
@@ -38,7 +38,7 @@ class ClienteDAO:
             for fila in cursor.fetchall():
                 clientes.append(Cliente(id=fila[0], nombre=fila[1], apellido=fila[2], telefono=fila[3], email=fila[4]))
         except Exception as e:
-            print(f"❌ Error al listar clientes: {e}")
+            print(f"Error al listar clientes: {e}")
         finally:
             if cursor: cursor.close()
             if conexion: conexion.close()
@@ -49,16 +49,16 @@ class ClienteDAO:
         try:
             conexion = get_connection()
             if conexion is None:
-                print("❌ No se pudo obtener conexión")
+                print(" No se pudo obtener conexión")
                 return
             cursor = conexion.cursor()
             # Corregido para coincidir con los nombres reales de las columnas
             sql = "UPDATE cliente SET Nombre=%s, Apellido=%s, Telfono=%s, email=%s WHERE id=%s"
             cursor.execute(sql, (cliente.nombre, cliente.apellido, cliente.telefono, cliente.email, cliente.id))
             conexion.commit()
-            print("✅ Cliente actualizado correctamente")
+            print("Cliente actualizado correctamente")
         except Error as e:
-            print(f"❌ Error al actualizar cliente: {e}")
+            print(f"Error al actualizar cliente: {e}")
         finally:
             if cursor: cursor.close()
             if conexion: conexion.close()
@@ -68,15 +68,15 @@ class ClienteDAO:
         try:
             conexion = get_connection()
             if conexion is None:
-                print("❌ No se pudo obtener conexión")
+                print(" No se pudo obtener conexión")
                 return
             cursor = conexion.cursor()
             sql = "DELETE FROM cliente WHERE id=%s"
             cursor.execute(sql, (id_cliente,))
             conexion.commit()
-            print("✅ Cliente eliminado correctamente")
+            print("Cliente eliminado correctamente")
         except Error as e:
-            print(f"❌ Error al eliminar cliente: {e}")
+            print(f"Error al eliminar cliente: {e}")
         finally:
             if cursor: cursor.close()
             if conexion: conexion.close()
@@ -86,7 +86,7 @@ class ClienteDAO:
         try:
             conexion = get_connection()
             if conexion is None:
-                print("❌ No se pudo obtener conexión")
+                print(" No se pudo obtener conexión")
                 return None
             cursor = conexion.cursor()
             # Corregido para coincidir con los nombres reales de las columnas
@@ -96,10 +96,10 @@ class ClienteDAO:
             if fila:
                 return Cliente(id=fila[0], nombre=fila[1], apellido=fila[2], telefono=fila[3], email=fila[4])
             else:
-                print(f"❌ No se encontró cliente con ID {id_cliente}")
+                print(f"No se encontró cliente con ID {id_cliente}")
                 return None
         except Exception as e:
-            print(f"❌ Error al buscar cliente: {e}")
+            print(f"Error al buscar cliente: {e}")
             return None
         finally:
             if cursor: cursor.close()

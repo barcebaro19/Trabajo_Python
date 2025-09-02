@@ -3,295 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía Básica de Python</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Sistema de Gestión de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            color: #2d3748;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        .hero-section {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
-            backdrop-filter: blur(10px);
-        }
-
-        .step-card {
+        .main-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
-
-        .step-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .step-number {
+        .header-gradient {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
             color: white;
-            margin-bottom: 1rem;
+            border-radius: 15px 15px 0 0;
         }
-
-        .code-block {
-            background: #2d3748;
-            color: #e2e8f0;
-            padding: 1rem;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            margin: 1rem 0;
-            overflow-x: auto;
+        .btn-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
         }
-
-        .keyword {
-            color: #ff6b6b;
+        .btn-custom:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            color: white;
         }
-
-        .string {
-            color: #51cf66;
-        }
-
-        .comment {
-            color: #868e96;
-        }
-
-        .image-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .image-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
-            z-index: 1;
-        }
-
-        .image-container img {
-            transition: transform 0.3s ease;
-        }
-
-        .image-container:hover img {
-            transform: scale(1.05);
-        }
-
-        .floating-button {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        .table-hover tbody tr:hover {
+            background-color: rgba(102, 126, 234, 0.1);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
-    <!-- Hero Section -->
-    <section class="hero-section text-white py-20 px-4">
-        <div class="max-w-6xl mx-auto text-center">
-            <div class="floating-button inline-block bg-white bg-opacity-20 p-6 rounded-full mb-8">
-                <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                </svg>
+<body>
+    <div class="container my-5">
+        <div class="main-container">
+            <!-- Header -->
+            <div class="header-gradient p-4">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h1 class="mb-0"><i class="fas fa-users me-3"></i>Sistema de Gestión de Clientes</h1>
+                        <p class="mb-0 opacity-75">Administra tu base de datos de clientes</p>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addClientModal">
+                            <i class="fas fa-plus me-2"></i>Nuevo Cliente
+                        </button>
+                    </div>
+                </div>
             </div>
-            <h1 class="text-5xl md:text-6xl font-bold mb-6">Guía Básica de Python</h1>
-            <p class="text-xl md:text-2xl opacity-90 mb-8">
-                Aprende los fundamentos esenciales del lenguaje de programación más versátil
-            </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <button class="bg-white text-purple-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">
-                    Comenzar Ahora
-                </button>
-                <button class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-700 transition-colors">
-                    Ver Ejemplos
-                </button>
+
+            <!-- Alerts -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="p-4">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show" role="alert">
+                                <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-triangle' }} me-2"></i>
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <!-- Client Table -->
+            <div class="p-4">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th><i class="fas fa-hashtag me-2"></i>ID</th>
+                                <th><i class="fas fa-user me-2"></i>Nombre</th>
+                                <th><i class="fas fa-user-tag me-2"></i>Apellido</th>
+                                <th><i class="fas fa-phone me-2"></i>Teléfono</th>
+                                <th><i class="fas fa-envelope me-2"></i>Email</th>
+                                <th><i class="fas fa-cogs me-2"></i>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if clientes %}
+                                {% for cliente in clientes %}
+                                <tr>
+                                    <td><span class="badge bg-primary">{{ cliente.id }}</span></td>
+                                    <td><strong>{{ cliente.nombre }}</strong></td>
+                                    <td>{{ cliente.apellido }}</td>
+                                    <td>
+                                        {% if cliente.telefono %}
+                                            <i class="fas fa-phone-alt text-success me-1"></i>{{ cliente.telefono }}
+                                        {% else %}
+                                            <span class="text-muted">No disponible</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if cliente.email %}
+                                            <i class="fas fa-envelope text-info me-1"></i>{{ cliente.email }}
+                                        {% else %}
+                                            <span class="text-muted">No disponible</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary me-1" 
+                                                data-id="{{ cliente.id }}"
+                                                data-nombre="{{ cliente.nombre }}"
+                                                data-apellido="{{ cliente.apellido }}"
+                                                data-telefono="{{ cliente.telefono or '' }}"
+                                                data-email="{{ cliente.email or '' }}"
+                                                onclick="editClientData(this)"
+                                                data-bs-toggle="modal" data-bs-target="#editClientModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger" 
+                                                data-id="{{ cliente.id }}"
+                                                data-nombre="{{ cliente.nombre }} {{ cliente.apellido }}"
+                                                onclick="confirmDeleteData(this)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="6" class="text-center py-5">
+                                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                                        <h5 class="text-muted">No hay clientes registrados</h5>
+                                        <p class="text-muted">Haz clic en "Nuevo Cliente" para agregar el primero</p>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            {% if clientes %}
+            <div class="p-4 border-top">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body">
+                                <i class="fas fa-users fa-2x text-primary mb-2"></i>
+                                <h4 class="mb-0">{{ clientes|length }}</h4>
+                                <small class="text-muted">Total Clientes</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body">
+                                <i class="fas fa-phone fa-2x text-success mb-2"></i>
+                                {% set telefono_count = 0 %}
+                                {% for cliente in clientes %}
+                                    {% if cliente.telefono %}
+                                        {% set telefono_count = telefono_count + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                <h4 class="mb-0">{{ telefono_count }}</h4>
+                                <small class="text-muted">Con Teléfono</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body">
+                                <i class="fas fa-envelope fa-2x text-info mb-2"></i>
+                                {% set email_count = 0 %}
+                                {% for cliente in clientes %}
+                                    {% if cliente.email %}
+                                        {% set email_count = email_count + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                <h4 class="mb-0">{{ email_count }}</h4>
+                                <small class="text-muted">Con Email</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Add Client Modal -->
+    <div class="modal fade" id="addClientModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="fas fa-user-plus me-2"></i>Agregar Nuevo Cliente</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="POST" action="/insertar">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre *</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido *</label>
+                            <input type="text" class="form-control" id="apellido" name="apellido" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" id="telefono" name="telefono">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-custom">
+                            <i class="fas fa-save me-2"></i>Guardar Cliente
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Pasos Básicos -->
-    <main class="flex-1 py-16 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-16">
-                Pasos Esenciales para Dominar Python
-            </h2>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Paso 1 -->
-                <div class="step-card p-6 rounded-2xl">
-                    <div class="step-number">1</div>
-                    <h3 class="text-xl font-semibold mb-4">Instalación y Configuración</h3>
-                    <p class="text-gray-600 mb-4">
-                        Comienza descargando Python desde python.org e instalando un editor de código como VS Code.
-                    </p>
-                    <div class="image-container mb-4">
-                        <img src="https://placehold.co/400x300" alt="Interfaz limpia de Visual Studio Code mostrando código Python con tema oscuro y resaltado de sintaxis" class="w-full h-48 object-cover" onerror="this.src='https://placehold.co/400x300/2d3748/e2e8f0?text=Python+Setup'">
-                    </div>
-                    <div class="code-block">
-                        <span class="comment"># Verificar instalación</span><br>
-        <span class="keyword">python</span> --version
-                    </div>
+    <!-- Edit Client Modal -->
+    <div class="modal fade" id="editClientModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title"><i class="fas fa-user-edit me-2"></i>Editar Cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-
-                <!-- Paso 2 -->
-                <div class="step-card p-6 rounded-2xl">
-                    <div class="step-number">2</div>
-                    <h3 class="text-xl font-semibold mb-4">Sintaxis Básica</h3>
-                    <p class="text-gray-600 mb-4">
-                        Aprende la estructura fundamental: variables, tipos de datos y operadores básicos.
-                    </p>
-                    <div class="image-container mb-4">
-                        <img src="https://placehold.co/400x300" alt="Diagrama colorido mostrando variables Python con diferentes tipos de datos: strings, números, listas y diccionarios" class="w-full h-48 object-cover" onerror="this.src='https://placehold.co/400x300/2d3748/e2e8f0?text=Sintaxis+Basica'">
+                <form method="POST" action="/actualizar">
+                    <div class="modal-body">
+                        <input type="hidden" id="edit_id" name="id">
+                        <div class="mb-3">
+                            <label for="edit_nombre" class="form-label">Nombre *</label>
+                            <input type="text" class="form-control" id="edit_nombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_apellido" class="form-label">Apellido *</label>
+                            <input type="text" class="form-control" id="edit_apellido" name="apellido" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_telefono" class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" id="edit_telefono" name="telefono">
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="edit_email" name="email">
+                        </div>
                     </div>
-                    <div class="code-block">
-                        <span class="comment"># Variables básicas</span><br>
-        nombre = <span class="string">"Python"</span><br>
-        edad = 30<br>
-        activo = True
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save me-2"></i>Actualizar Cliente
+                        </button>
                     </div>
-                </div>
-
-                <!-- Paso 3 -->
-                <div class="step-card p-6 rounded-2xl">
-                    <div class="step-number">3</div>
-                    <h3 class="text-xl font-semibold mb-4">Estructuras de Control</h3>
-                    <p class="text-gray-600 mb-4">
-                        Domina if/else, bucles for y while para controlar el flujo de tu programa.
-                    </p>
-                    <div class="image-container mb-4">
-                        <img src="https://placehold.co/400x300" alt="Diagrama de flujo visual con condicionales if-else y bucles for en Python mostrando lógica de programación" class="w-full h-48 object-cover" onerror="this.src='https://placehold.co/400x300/2d3748/e2e8f0?text=Control+Flow'">
-                    </div>
-                    <div class="code-block">
-                        <span class="comment"># Bucle for</span><br>
-        <span class="keyword">for</span> i <span class="keyword">in</span> range(5):<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;print(i)
-                    </div>
-                </div>
-
-                <!-- Paso 4 -->
-                <div class="step-card p-6 rounded-2xl">
-                    <div class="step-number">4</div>
-                    <h3 class="text-xl font-semibold mb-4">Funciones</h3>
-                    <p class="text-gray-600 mb-4">
-                        Crea funciones reutilizables para organizar y modularizar tu código.
-                    </p>
-                    <div class="image-container mb-4">
-                        <img src="https://placehold.co/400x300" alt="Visualización de función Python con parámetros y valor de retorno, mostrando estructura modular" class="w-full h-48 object-cover" onerror="this.src='https://placehold.co/400x300/2d3748/e2e8f0?text=Funciones'">
-                    </div>
-                    <div class="code-block">
-                        <span class="comment"># Definir función</span><br>
-        <span class="keyword">def</span> saludo(nombre):<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">f"Hola {nombre}"</span>
-                    </div>
-                </div>
-
-                <!-- Paso 5 -->
-                <div class="step-card p-6 rounded-2xl">
-                    <div class="step-number">5</div>
-                    <h3 class="text-xl font-semibold mb-4">Estructuras de Datos</h3>
-                    <p class="text-gray-600 mb-4">
-                        Listas, diccionarios, tuplas y sets - las herramientas esenciales para manejar datos.
-                    </p>
-                    <div class="image-container mb-4">
-                        <img src="https://placehold.co/400x300" alt="Representación gráfica de estructuras de datos Python: listas ordenadas, diccionarios clave-valor, tuplas inmutables" class="w-full h-48 object-cover" onerror="this.src='https://placehold.co/400x300/2d3748/e2e8f0?text=Estructuras+Datos'">
-                    </div>
-                    <div class="code-block">
-                        <span class="comment"># Lista y diccionario</span><br>
-        numeros = [1, 2, 3, 4, 5]<br>
-        persona = {<span class="string">"nombre"</span>: <span class="string">"Ana"</span>, <span class="string">"edad"</span>: 25}
-                    </div>
-                </div>
-
-                <!-- Paso 6 -->
-                <div class="step-card p-6 rounded-2xl">
-                    <div class="step-number">6</div>
-                    <h3 class="text-xl font-semibold mb-4">Manejo de Errores</h3>
-                    <p class="text-gray-600 mb-4">
-                        Aprende a usar try/except para manejar excepciones y errores elegantemente.
-                    </p>
-                    <div class="image-container mb-4">
-                        <img src="https://placehold.co/400x300" alt="Diagrama de manejo de excepciones try-except en Python mostrando flujo de errores y soluciones" class="w-full h-48 object-cover" onerror="this.src='https://placehold.co/400x300/2d3748/e2e8f0?text=Manejo+Errores'">
-                    </div>
-                    <div class="code-block">
-                        <span class="comment"># Try/Except</span><br>
-        <span class="keyword">try</span>:<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;resultado = 10 / 0<br>
-        <span class="keyword">except</span> ZeroDivisionError:<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;print(<span class="string">"Error: División por cero"</span>)
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
-    </main>
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12 px-4">
-        <div class="max-w-6xl mx-auto text-center">
-            <h3 class="text-2xl font-bold mb-6">¿Listo para comenzar tu viaje en Python?</h3>
-            <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
-                Python es el lenguaje perfecto para principiantes y profesionales. Comienza hoy mismo y descubre el poder de la programación.
-            </p>
-            <div class="flex justify-center space-x-4">
-                <a href="#" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-lg font-semibold transition-colors">
-                    Descargar Python
-                </a>
-                <a href="#" class="border border-gray-600 hover:bg-gray-800 px-6 py-3 rounded-lg font-semibold transition-colors">
-                    Tutoriales Completos
-                </a>
-            </div>
-            <div class="mt-12 pt-8 border-t border-gray-800">
-                <p class="text-gray-500">© 2024 Guía Básica de Python. Desarrollado para aprendices.</p>
-            </div>
-        </div>
-    </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Efecto de aparición suave para las tarjetas
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.step-card');
+        function editClientData(button) {
+            const id = button.getAttribute('data-id');
+            const nombre = button.getAttribute('data-nombre');
+            const apellido = button.getAttribute('data-apellido');
+            const telefono = button.getAttribute('data-telefono');
+            const email = button.getAttribute('data-email');
+            
+            document.getElementById('edit_id').value = id;
+            document.getElementById('edit_nombre').value = nombre;
+            document.getElementById('edit_apellido').value = apellido;
+            document.getElementById('edit_telefono').value = telefono;
+            document.getElementById('edit_email').value = email;
+        }
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0)';
-                        }, index * 100);
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(card);
-            });
-        });
+        function confirmDeleteData(button) {
+            const id = button.getAttribute('data-id');
+            const nombre = button.getAttribute('data-nombre');
+            
+            if (confirm(`¿Estás seguro de que deseas eliminar al cliente "${nombre}"?`)) {
+                window.location.href = `/eliminar/${id}`;
+            }
+        }
     </script>
 </body>
 </html>

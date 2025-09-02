@@ -21,10 +21,10 @@ def inicializar_pool():
             pool_size=5,       # número de conexiones simultáneas
             **dbconfig
         )
-        print("✅ Pool de conexiones creado exitosamente")
+        print("Pool de conexiones creado exitosamente")
         return True
     except Error as e:
-        print(f"❌ Error al crear el pool: {e}")
+        print(f"Error al crear el pool: {e}")
         return False
 
 def get_connection():
@@ -36,7 +36,7 @@ def get_connection():
                 return None
         return pool.get_connection()
     except Error as e:
-        print(f"❌ Error al obtener conexión del pool: {e}")
+        print(f"Error al obtener conexión del pool: {e}")
         return None
 
 # Inicializar el pool al importar el módulo
